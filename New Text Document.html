@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Kumud ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: black;
+  color: white;
+  text-align: center;
+}
+
+video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  top: 35%;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 40px;
+  animation: fadeIn 2s ease forwards;
+}
+
+button {
+  padding: 15px 35px;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  position: absolute;
+  transition: all 0.25s ease;
+}
+
+#yesBtn {
+  background: #ff4d88;
+  left: 40%;
+  box-shadow: 0 0 20px rgba(255,77,136,0.7);
+}
+
+#noBtn {
+  background: #444;
+  left: 55%;
+}
+
+.heart {
+  position: fixed;
+  color: #ff6fa5;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.finalMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 3rem;
+  background: black;
+  text-align: center;
+  animation: fadeIn 2s ease forwards;
+}
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop playsinline>
+  <source src="kumud.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="content">
+  <h1>Will you be my Valentine, Kumud? ❤️</h1>
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+let scale = 1;
+
+// Start music on first click
+const music = new Audio("nazdeekiyan.mp3");
+music.loop = true;
+
+document.addEventListener("click", function() {
+  music.play();
+}, { once: true });
+
+// No button runs + Yes grows
+noBtn.addEventListener("mouseenter", function() {
+
+  scale += 0.2;
+  yesBtn.style.transform = "scale(" + scale + ")";
+
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+});
+
+// Yes click finale
+yesBtn.addEventListener("click", function() {
+  document.body.innerHTML = `
+  <div class="finalMessage">
+    💖 Kumud Said Yes 💖 <br><br>
+    Nazdeekiyan aur bhi badh gayi. <br>
+    You are my favorite place in this world.
+  </div>
+  `;
+});
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
